@@ -1,2 +1,2 @@
 # Encoding
-small encoding software
+playling around with some "encoding"
