@@ -31,6 +31,7 @@ public class BlaBla{
     JButton encode;
     JButton decode;
     JButton clear;
+    JButton test;
     GridBagLayout gbl;
     GridBagConstraints gbc;
         
@@ -120,6 +121,22 @@ public class BlaBla{
         f.repaint();
     }
     
+    public void clearText(){
+        jtaIn.setText("");
+        encodeText();
+        decodeText();
+    }
+    
+    public void testText(){
+        clearText();
+        
+        bin = new int[64];
+        for(int i = 0; i<2048; i +=8){
+            bin[i>>5] |= ((i/8) & 255) << (24 - i%32);
+        }
+        decodeText();
+    }
+    
     public void makeFrame(){
         gbl = new GridBagLayout();
         gbc = new GridBagConstraints();
@@ -201,9 +218,17 @@ public class BlaBla{
         gbc.gridy = 1;
         gbc.insets = new Insets(10,50,10,50);
         clear = new JButton("Clear");
-        clear.addActionListener(new ActionListener(){public void actionPerformed(ActionEvent e){jtaIn.setText("");encodeText();decodeText();}});
+        clear.addActionListener(new ActionListener(){public void actionPerformed(ActionEvent e){clearText();}});
         gbl.setConstraints(clear, gbc);
         f.add(clear);
+        
+        gbc.gridx = 2;
+        gbc.gridy = 1;
+        gbc.insets = new Insets(10,50,10,50);
+        test = new JButton("Test");
+        test.addActionListener(new ActionListener(){public void actionPerformed(ActionEvent e){testText();}});
+        gbl.setConstraints(test, gbc);
+        f.add(test);
         
         f.pack();
         jtaIn.setText(strIn);
